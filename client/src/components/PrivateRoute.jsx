@@ -1,0 +1,12 @@
+import React from "react";
+import { useSelector } from "react-redux";
+import { Outlet, Navigate } from "react-router-dom";
+
+function PrivateRoute() {
+  // const user = useSelector((state) => state.auth.user);
+  const user = localStorage.getItem("fooduser");
+
+  return user ? <Outlet /> : <Navigate to="/login" />;
+}
+
+export default PrivateRoute;

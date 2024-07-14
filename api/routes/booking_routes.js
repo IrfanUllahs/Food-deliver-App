@@ -1,0 +1,11 @@
+import express from "express";
+const router = express.Router();
+import booking_controller from "../controllers/booking_controller.js";
+import auth from "../middlewares/auth.js";
+router.post("/", auth, booking_controller.booking);
+router.get("/getlength", auth, booking_controller.getLengthOfbooking);
+router.get("/getbooking", auth, booking_controller.getBooking);
+router.delete("/deletebooking/:id", auth, booking_controller.deleteBooking);
+router.patch("/updatebooking/:id", auth, booking_controller.updateBooking);
+router.get("/getbooking/:id", auth, booking_controller.getSingleBooking);
+export default router;

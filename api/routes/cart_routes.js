@@ -1,0 +1,10 @@
+import express from "express";
+const router = express.Router();
+import cart_controller from "../controllers/cart_controller.js";
+import auth from "../middlewares/auth.js";
+router.post("/addtocart/:id", auth, cart_controller.addToCart);
+router.get("/getcartproducts", auth, cart_controller.getCartProducts);
+router.delete("/deleteproduct/:id", auth, cart_controller.deleteProduct);
+router.patch("/updateproduct/:id", auth, cart_controller.updateProduct);
+router.get("/getlength", auth, cart_controller.getLengthOfcart);
+export default router;
