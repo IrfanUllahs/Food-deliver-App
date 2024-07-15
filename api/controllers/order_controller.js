@@ -9,7 +9,9 @@ const createOrder = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).send({ message: "Invalid ID format" });
     }
-    const cartItems = await cartModle.find({ userId: userId });
+    const cartItems = await cartModle
+      .find({ userId: userId })
+      .populate({ path: "productId", select: "name image" });
     if (cartItems.length === 0) {
       return res.status(400).send({ message: "Cart is empty" });
     }
@@ -19,9 +21,11 @@ const createOrder = async (req, res) => {
     );
     const products = cartItems.map((item) => {
       return {
-        productId: item.productId,
+        productId: item.productId._id,
         quantity: item.quantity,
         price: item.price,
+        name: item.productId.name,
+        image: item.productId.image,
       };
     });
 
@@ -31,7 +35,7 @@ const createOrder = async (req, res) => {
       totalPrice: totalPrice,
     });
     await order.save();
-    await cartModle.deleteMany({ userId: userId });
+    // await cartModle.deleteMany({ userId: userId });
     res.status(200).json(order);
   } catch (err) {
     console.log(err);
@@ -54,4 +58,29 @@ const getOrders = async (req, res) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 };
-export default { createOrder, getOrders };
+const updateOrder = async (req, res) => {
+  const orderId = req.params.id;
+  const userId = req.userId;
+  const role = req.role;
+  try {
+    let order;
+    if (!mongoose.Types.ObjectId.isValid(orderId)) {
+      return res.status(400).send({ message: "Invalid ID format" });
+    }
+    if (role) {
+      order = await orderModel.findById(orderId);
+    } else {
+      order = await orderModel.findOne({ _id: orderId, userId });
+    }
+    if (!order) {
+      return res.status(404).send({ message: "Order not found" });
+    }
+    order.status = req.body.status;
+    await order.save();
+    res.status(200).json(order);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+export default { createOrder, getOrders, updateOrder };
