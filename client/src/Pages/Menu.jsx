@@ -9,10 +9,10 @@ import Toast from "../components/Toast";
 function Menu() {
   const user = useSelector((state) => state?.auth?.user);
   console.log(user);
-  const categories = ["All", "Salad", "Drinks", "Dessert", "Pizza", "Soup"];
+  const categories = ["All", "Chicken", "Rice", "Dessert", "Pizza", "Soup"];
   const [data, setdata] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-
+  console.log(data);
   const [currPage, setCurrPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
   const [category, setCategory] = useState("All");
@@ -112,7 +112,7 @@ function Menu() {
           </button>
         ))}
       </div>
-      <div className="grid lg:grid-cols-3 gap-11 md:grid-cols-2  grid-cols-1 px-4 mt-16 ">
+      <div className="grid lg:grid-cols-3 gap-16 md:grid-cols-2  grid-cols-1 px-4 mt-16 ">
         {isLoading ? (
           <div className="text-center text-3xl  w-[1200px] mx-auto my-[100px] ">
             Loading...
@@ -127,10 +127,11 @@ function Menu() {
             <Card
               key={item._id}
               fav={true}
-              title={item.name}
+              title={item.shortName}
               desc={item.recipe}
               price={item.price}
               id={item._id}
+              image={item.image}
               handleAddToCart={handleAddToCart}
             />
           ))

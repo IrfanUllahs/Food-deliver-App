@@ -21,6 +21,7 @@ import Cart from "./Pages/Cart";
 import Bookings from "./Pages/Bookings";
 import Services from "./Pages/Serives";
 import UserRoute from "./components/UserRoute";
+import OrdersPage from "./Pages/OrdersPage";
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -42,6 +43,7 @@ const App = () => {
             <Route path="/payment/:id" element={<Payment />} />
             <Route path="/paymenthistory" element={<PaymentHistory />} />
             <Route path="/bookings" element={<Bookings />} />
+            <Route path="/order-tracking" element={<OrdersPage />} />
             <Route element={<UserRoute />}>
               <Route path="/cart" element={<Cart />} />
             </Route>

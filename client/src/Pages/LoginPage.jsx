@@ -95,6 +95,13 @@ const LoginPage = () => {
           >
             {isLoading ? "Loading..." : "Login"}
           </button>
+          <Link
+            to={"/"}
+            type="submit"
+            className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition duration-200 flex items-center justify-center mt-6"
+          >
+            proceed to home
+          </Link>
         </form>
         <div className="mt-6 text-center text-[#656565]">
           <p>
