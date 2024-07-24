@@ -9,6 +9,7 @@ const createOrder = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).send({ message: "Invalid ID format" });
     }
+
     const cartItems = await cartModle
       .find({ userId: userId })
       .populate({ path: "productId", select: "name image" });
@@ -35,7 +36,7 @@ const createOrder = async (req, res) => {
       totalPrice: totalPrice,
     });
     await order.save();
-    // await cartModle.deleteMany({ userId: userId });
+    await cartModle.deleteMany({ userId: userId });
     res.status(200).json(order);
   } catch (err) {
     console.log(err);
@@ -62,6 +63,7 @@ const updateOrder = async (req, res) => {
   const orderId = req.params.id;
   const userId = req.userId;
   const role = req.role;
+
   try {
     let order;
     if (!mongoose.Types.ObjectId.isValid(orderId)) {
@@ -75,6 +77,12 @@ const updateOrder = async (req, res) => {
     if (!order) {
       return res.status(404).send({ message: "Order not found" });
     }
+    if (!req.body.status) {
+      return res
+        .status(400)
+        .send({ message: "Order status cannot be updated" });
+    }
+
     order.status = req.body.status;
     await order.save();
     res.status(200).json(order);

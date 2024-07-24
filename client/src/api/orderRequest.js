@@ -20,4 +20,6 @@ API.interceptors.response.use(
   }
 );
 export const createOrder = (data) => API.post(`/api/order`);
-export const getorders = (data) => API.get(`/api/order/getorders`);
+export const getorders = () => API.get(`/api/order/getorders`);
+export const updateOrder = (id, data) =>
+  API.patch(`/api/order/updateorder/${id}`, data);

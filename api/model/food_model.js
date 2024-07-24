@@ -5,6 +5,10 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  shortName: {
+    type: String,
+    required: true,
+  },
   recipe: {
     type: String,
     required: true,
