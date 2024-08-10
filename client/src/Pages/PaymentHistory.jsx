@@ -1,18 +1,21 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setAllPayments } from "../redux/features/paymentSlice";
 import { getPayments } from "../api/paymentReuest";
 function PaymentHistory() {
   const data = useSelector((state) => state?.payment?.allPayments);
-
+  const [isloading, setIsloading] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchPayments = async () => {
       try {
+        setIsloading(true);
         const { data } = await getPayments();
         dispatch(setAllPayments(data));
+        setIsloading(false);
       } catch (error) {
+        setIsloading(false);
         console.log(error);
       }
     };
@@ -38,25 +41,31 @@ function PaymentHistory() {
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
-              {data.map((item, index) => (
-                <tr
-                  key={index}
-                  className="border-b border-gray-200 hover:bg-gray-100"
-                >
-                  <td className="py-3 sm:px-6 px-2 text-left whitespace-nowrap">
-                    {item.userEmail}
-                  </td>
-                  <td className="py-3 sm:px-6 px-2 text-left">
-                    {item.payment}
-                  </td>
-                  <td className="py-3 sm:px-6 px-2 text-left">
-                    ${item.amount}
-                  </td>
-                  <td className="py-3 sm:px-6 px-2 text-left">
-                    {item.createdAt.slice(0, 10)}
-                  </td>
-                </tr>
-              ))}
+              {isloading ? (
+                <h1 className="text-center font-bold text-2xl w-[200px] mx-auto">
+                  Loading...
+                </h1>
+              ) : (
+                data.map((item, index) => (
+                  <tr
+                    key={index}
+                    className="border-b border-gray-200 hover:bg-gray-100"
+                  >
+                    <td className="py-3 sm:px-6 px-2 text-left whitespace-nowrap">
+                      {item.userEmail}
+                    </td>
+                    <td className="py-3 sm:px-6 px-2 text-left">
+                      {item.payment}
+                    </td>
+                    <td className="py-3 sm:px-6 px-2 text-left">
+                      ${item.amount}
+                    </td>
+                    <td className="py-3 sm:px-6 px-2 text-left">
+                      {item.createdAt.slice(0, 10)}
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
