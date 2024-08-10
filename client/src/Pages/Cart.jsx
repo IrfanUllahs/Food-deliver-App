@@ -18,20 +18,14 @@ const Loading = () => (
 const Cart = () => {
   const id = "checkout";
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("fooduser"));
+  console.log(user);
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   // console.log(JSON.parse(localStorage.getItem("fooduser")).token);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalProducts, settotalProducts] = useState(0);
-  const customerDetails = [
-    {
-      id: 1,
-      name: "Mark Peter",
-      email: "hXHb8@example.com",
-      address: "New York, USA",
-    },
-  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +35,7 @@ const Cart = () => {
         const { data } = await getCartProducts();
         setIsLoading(false);
         setIsError(false);
-        console.log(data);
+
         dispatch(setAllCartProducts(data));
       } catch (error) {
         console.log(error);
@@ -100,7 +94,6 @@ const Cart = () => {
       </div>
     );
   }
-  console.log(cartProducts);
 
   return (
     <div className="p-4 w-full overflow-hidden ">

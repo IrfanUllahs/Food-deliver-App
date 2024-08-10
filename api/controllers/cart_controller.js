@@ -78,7 +78,7 @@ const updateProduct = async (req, res) => {
       { _id: id, userId: userId },
       { $set: { quantity: req.body.quantity } },
       { new: true }
-    );
+    ).populate("productId");
 
     if (!product) {
       return res.status(404).send({ message: "Product not found" });

@@ -16,7 +16,6 @@ const cartSlice = createSlice({
       state.cartProducts = action.payload;
     },
     updateCartProducts: (state, action) => {
-      console.log(action.payload);
       state.cartProducts = state.cartProducts.map((item) =>
         item._id === action.payload._id ? action.payload : item
       );

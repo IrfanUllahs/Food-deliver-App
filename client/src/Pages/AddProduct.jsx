@@ -152,12 +152,14 @@ const AddProduct = () => {
               />
               {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
             </div>
-            <button
-              type="submit"
-              className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-300"
-            >
-              Add
-            </button>
+            <div>
+              <button
+                type="submit"
+                className=" bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600  focus:outline-none focus:ring focus:ring-green-300"
+              >
+                Add
+              </button>
+            </div>
           </div>
         </form>
       </div>

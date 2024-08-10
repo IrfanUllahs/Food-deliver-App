@@ -85,7 +85,7 @@ const Products = () => {
         )}
       </>
       <Link to="/addproduct">
-        <button className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-primary">
+        <button className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-primary w-150px]  ">
           Add Product
         </button>
       </Link>
