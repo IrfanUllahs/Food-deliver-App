@@ -20,7 +20,7 @@ function Card({ id, image, recipe, count }) {
       <>
         <p className="text-2xl font-bold mt-5">{recipe}</p>
         <p className="text-[15px] font-medium mt-2 text-secondary">
-          ({count ? (count > 10 ? count : "0" + count) : "00"})
+          ({count ? (count >= 10 ? count : "0" + count) : "00"})
         </p>
       </>
     </Link>
