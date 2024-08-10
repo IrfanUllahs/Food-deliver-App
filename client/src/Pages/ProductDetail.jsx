@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ReactImageMagnify from "react-image-magnify";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Toast from "../components/Toast";
 import { setCartProducts } from "../redux/features/cartSlice";
 import { addToCart } from "../api/cartRequest";
 import { useDispatch } from "react-redux";
-
+import { useSelector } from "react-redux";
 function ProductDetail() {
+  const user = useSelector((state) => state.auth.user);
   const { id } = useParams();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -72,12 +73,20 @@ function ProductDetail() {
             <span className="">Price</span> ${product.price}
           </div>
         </div>
-        <button
-          className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-primary transition duration-300"
-          onClick={() => handleAddToCart(product._id)}
-        >
-          Add to Cart
-        </button>
+        {user?.role ? (
+          <Link to={`/edit/${product._id}`}>
+            <button className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-primary transition duration-300">
+              Edit
+            </button>
+          </Link>
+        ) : (
+          <button
+            className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-primary transition duration-300"
+            onClick={() => handleAddToCart(product._id)}
+          >
+            Add to Cart
+          </button>
+        )}
       </div>
 
       <Toast

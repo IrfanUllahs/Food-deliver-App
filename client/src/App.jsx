@@ -26,6 +26,7 @@ import ProductDetail from "./Pages/ProductDetail";
 import Products from "./Pages/Products";
 import Edit from "./Pages/Edit";
 import AddProduct from "./Pages/AddProduct";
+import OffersPage from "./Pages/OfferPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ const App = () => {
           <Route path="/menu" element={<Menu />} />
           <Route path="/services" element={<Services />} />
           <Route path="/productdetail/:id" element={<ProductDetail />} />
+          <Route path="offers" element={<OffersPage />} />
         </Route>
       </Routes>
     </Router>
