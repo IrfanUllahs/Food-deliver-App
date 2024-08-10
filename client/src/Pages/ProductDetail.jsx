@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ReactImageMagnify from "react-image-magnify";
+
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import Toast from "../components/Toast";
