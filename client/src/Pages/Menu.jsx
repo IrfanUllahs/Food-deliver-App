@@ -38,13 +38,13 @@ function Menu() {
   useEffect(() => {
     if (category === "All") {
       setFilteredData(
-        data.slice((currPage - 1) * pageSize, currPage * pageSize)
+        data?.slice((currPage - 1) * pageSize, currPage * pageSize)
       );
     } else {
       setFilteredData(
         data
-          .filter((item) => item.category === category.toLocaleLowerCase())
-          .slice((currPage - 1) * pageSize, currPage * pageSize)
+          ?.filter((item) => item.category === category.toLocaleLowerCase())
+          ?.slice((currPage - 1) * pageSize, currPage * pageSize)
       );
     }
   }, [category, data, currPage]);
