@@ -41,16 +41,18 @@ function Menu() {
   }, [category]);
 
   useEffect(() => {
-    if (category === "All") {
-      setFilteredData(
-        (data || []).slice((currPage - 1) * pageSize, currPage * pageSize)
-      );
-    } else {
-      setFilteredData(
-        (data || [])
-          .filter((item) => item.category === category.toLocaleLowerCase())
-          .slice((currPage - 1) * pageSize, currPage * pageSize)
-      );
+    if (data.length > 0) {
+      if (category === "All") {
+        setFilteredData(
+          (data || []).slice((currPage - 1) * pageSize, currPage * pageSize)
+        );
+      } else {
+        setFilteredData(
+          (data || [])
+            .filter((item) => item.category === category.toLocaleLowerCase())
+            .slice((currPage - 1) * pageSize, currPage * pageSize)
+        );
+      }
     }
   }, [category, data, currPage, pageSize]);
 
@@ -62,7 +64,9 @@ function Menu() {
     setCategory(item);
     setCurrPage(1);
   };
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="flex flex-col gap-10 px-2 pt-[120px]">
       <h1 className="sm:text-5xl text-[25px] font-bold text-center">
