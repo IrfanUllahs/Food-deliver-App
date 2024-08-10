@@ -24,3 +24,8 @@ export const getbookings = () => API.get(`/api/booking/getbooking`);
 export const deleteBooking = (id) =>
   API.delete(`/api/booking/deletebooking/${id}`);
 export const getABooking = (id) => API.get(`/api/booking/getbooking/${id}`);
+export const getallFoods = () => API.get(`/api/food/getallfoods`);
+export const deleteFood = (id) => API.delete(`/api/food/deletefood/${id}`);
+export const updateFood = (data, id) =>
+  API.patch(`/api/food/updatefood/${id}`, data);
+export const addFood = (data) => API.post(`/api/food/addfood`, data);

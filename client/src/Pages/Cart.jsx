@@ -41,7 +41,7 @@ const Cart = () => {
         const { data } = await getCartProducts();
         setIsLoading(false);
         setIsError(false);
-
+        console.log(data);
         dispatch(setAllCartProducts(data));
       } catch (error) {
         console.log(error);
@@ -100,6 +100,7 @@ const Cart = () => {
       </div>
     );
   }
+  console.log(cartProducts);
 
   return (
     <div className="p-4 w-full overflow-hidden ">
@@ -122,12 +123,14 @@ const Cart = () => {
                 <td className="py-3 sm:px-6 px-2 text-left">{index + 1}</td>
                 <td className="py-3 sm:px-6 px-2 text-left">
                   <img
-                    src={item.image}
+                    src={item?.productId?.image}
                     alt={item.name}
                     className="w-12 h-12 object-cover"
                   />
                 </td>
-                <td className="py-3 sm:px-6 px-2 text-left">{item.name}</td>
+                <td className="py-3 sm:px-6 px-2 text-left">
+                  {item?.productId?.name}
+                </td>
                 <td className="py-3 sm:px-6 px-2 text-left">
                   <div className="flex items-center">
                     <button

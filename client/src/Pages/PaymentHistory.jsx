@@ -23,7 +23,9 @@ function PaymentHistory() {
       <div className="bg-yellow-300 font-inter font-bold text-[25px] h-[80px] py-3 flex items-center justify-center rounded-md ">
         <h1>PAYMENT HISTORY</h1>
       </div>
-      <h1 className="text-[20px] font-bold font-cinzel">TOTAL PYMENTS: {}</h1>
+      <h1 className="text-[20px] font-bold font-cinzel">
+        TOTAL PYMENTS: {data.length}
+      </h1>
       <>
         <div className="overflow-x-auto max-h-[350px]">
           <table className="min-w-full bg-white w-full">

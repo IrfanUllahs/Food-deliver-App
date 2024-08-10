@@ -132,9 +132,20 @@ const Sidebar = () => {
           <FaTruck className="mr-3 text-[25px]" />
           <span className="transition duration-200">ORDER TRACKING</span>
         </NavLink>
+        <NavLink
+          to="/products"
+          className={({ isActive }) =>
+            `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
+              isActive ? "text-white" : "text-black"
+            }`
+          }
+        >
+          <FaTruck className="mr-3 text-[25px]" />
+          <span className="transition duration-200">Products</span>
+        </NavLink>
       </nav>
       <hr />
-      <div className="mt-3 font-cinzel font-bold text-black custmd:text-[16px] md:text-[14px] custmd:px-4 px-1">
+      <div className="mt-3 font-cinzel font-bold text-black custmd:text-[16px] md:text-[14px]  px-1">
         <NavLink
           to="/"
           className={({ isActive }) =>

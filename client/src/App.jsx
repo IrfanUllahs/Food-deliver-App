@@ -22,6 +22,11 @@ import Bookings from "./Pages/Bookings";
 import Services from "./Pages/Serives";
 import UserRoute from "./components/UserRoute";
 import OrdersPage from "./Pages/OrdersPage";
+import ProductDetail from "./Pages/ProductDetail";
+import Products from "./Pages/Products";
+import Edit from "./Pages/Edit";
+import AddProduct from "./Pages/AddProduct";
+
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -44,6 +49,9 @@ const App = () => {
             <Route path="/paymenthistory" element={<PaymentHistory />} />
             <Route path="/bookings" element={<Bookings />} />
             <Route path="/order-tracking" element={<OrdersPage />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/edit/:id" element={<Edit />} />
+            <Route path="/addproduct" element={<AddProduct />} />
             <Route element={<UserRoute />}>
               <Route path="/cart" element={<Cart />} />
             </Route>
@@ -52,8 +60,10 @@ const App = () => {
 
         <Route element={<LayoutWithMenu />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/menu/:id" element={<Menu />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/productdetail/:id" element={<ProductDetail />} />
         </Route>
       </Routes>
     </Router>

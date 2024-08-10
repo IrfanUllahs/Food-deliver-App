@@ -21,16 +21,16 @@ import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import { Menu } from "@mui/material";
-
+import { useSelector } from "react-redux";
 export default function TemporaryDrawer() {
   const [open, setOpen] = React.useState(false);
-
+  const user = useSelector((state) => state.auth.user);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
 
   const Sidebar = () => (
-    <div className="bg-green-500 h-full font-inter pt-2 ">
+    <div className="bg-green-500  h-full font-inter pt-2 ">
       <div className="flex items-center mb-8 custmd:px-4 px-1">
         <img
           src="https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -47,7 +47,7 @@ export default function TemporaryDrawer() {
         </div>
       </div>
       <hr />
-      <nav className="font-cinzel font-bold text-black custmd:text-[16px] md:text-[14px] my-3">
+      <nav className="font-cinzel font-bold text-black custmd:text-[16px] md:text-[14px]  my-3">
         <NavLink
           to="/dashboard"
           className={({ isActive }) =>
@@ -70,19 +70,21 @@ export default function TemporaryDrawer() {
           <FaUser className="mr-3 text-[25px]" />
           <span className="transition duration-200">PROFILE</span>
         </NavLink>
+        {!user?.role && (
+          <NavLink
+            to="/reservation"
+            className={({ isActive }) =>
+              `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
+                isActive ? "text-white" : "text-black"
+              }`
+            }
+          >
+            <FaCalendarAlt className="mr-3 text-[25px]" />
+            <span className="transition duration-200">RESERVATION</span>
+          </NavLink>
+        )}
         <NavLink
-          to="/reservation"
-          className={({ isActive }) =>
-            `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
-              isActive ? "text-white" : "text-black"
-            }`
-          }
-        >
-          <FaCalendarAlt className="mr-3 text-[25px]" />
-          <span className="transition duration-200">RESERVATION</span>
-        </NavLink>
-        <NavLink
-          to="/payment-history"
+          to="/paymenthistory"
           className={({ isActive }) =>
             `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
               isActive ? "text-white" : "text-black"
@@ -92,28 +94,44 @@ export default function TemporaryDrawer() {
           <FaFileInvoiceDollar className="mr-3 text-[25px]" />
           <span className="transition duration-200">PAYMENT HISTORY</span>
         </NavLink>
-        <NavLink
-          to="/cart"
-          className={({ isActive }) =>
-            `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
-              isActive ? "text-white" : "text-black"
-            }`
-          }
-        >
-          <FaShoppingCart className="mr-3 text-[25px]" />
-          <span className="transition duration-200">MY CART</span>
-        </NavLink>
-        <NavLink
-          to="/bookings"
-          className={({ isActive }) =>
-            `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
-              isActive ? "text-white" : "text-black"
-            }`
-          }
-        >
-          <FaBook className="mr-3 text-[25px]" />
-          <span className="transition duration-200">MY BOOKINGS</span>
-        </NavLink>
+        {!user?.role && (
+          <NavLink
+            to="/cart"
+            className={({ isActive }) =>
+              `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
+                isActive ? "text-white" : "text-black"
+              }`
+            }
+          >
+            <FaShoppingCart className="mr-3 text-[25px]" />
+            <span className="transition duration-200">MY CART</span>
+          </NavLink>
+        )}
+        {user?.role ? (
+          <NavLink
+            to="/bookings"
+            className={({ isActive }) =>
+              `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
+                isActive ? "text-white" : "text-black"
+              }`
+            }
+          >
+            <FaBook className="mr-3 text-[25px]" />
+            <span className="transition duration-200">All BOOKINGS</span>
+          </NavLink>
+        ) : (
+          <NavLink
+            to="/bookings"
+            className={({ isActive }) =>
+              `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
+                isActive ? "text-white" : "text-black"
+              }`
+            }
+          >
+            <FaBook className="mr-3 text-[25px]" />
+            <span className="transition duration-200">MY BOOKINGS</span>
+          </NavLink>
+        )}
         <NavLink
           to="/order-tracking"
           className={({ isActive }) =>
@@ -125,11 +143,22 @@ export default function TemporaryDrawer() {
           <FaTruck className="mr-3 text-[25px]" />
           <span className="transition duration-200">ORDER TRACKING</span>
         </NavLink>
+        <NavLink
+          to="/products"
+          className={({ isActive }) =>
+            `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
+              isActive ? "text-white" : "text-black"
+            }`
+          }
+        >
+          <FaTruck className="mr-3 text-[25px]" />
+          <span className="transition duration-200">Products</span>
+        </NavLink>
       </nav>
       <hr />
-      <div className="mt-3 font-cinzel font-bold text-black custmd:text-[16px] md:text-[14px] custmd:px-4 px-1">
+      <div className="mt-3 font-cinzel font-bold text-black custmd:text-[16px] md:text-[14px]  px-1">
         <NavLink
-          to="/home"
+          to="/"
           className={({ isActive }) =>
             `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
               isActive ? "text-white" : "text-black"

@@ -1,5 +1,12 @@
 import express from "express";
 const router = express.Router();
 import food_controller from "../controllers/food_controller.js";
+import auth from "../middlewares/auth.js";
 router.get("/getfoods/:category", food_controller.getAllRecipes);
+router.get("/getfood/:id", food_controller.getRecipe);
+router.get("/getfoodscount", food_controller.getRecipesCount);
+router.get("/getallfoods", auth, food_controller.getAllFoods);
+router.delete("/deletefood/:id", auth, food_controller.deleteFood);
+router.patch("/updatefood/:id", auth, food_controller.updateFood);
+router.post("/addfood", auth, food_controller.addFood);
 export default router;
