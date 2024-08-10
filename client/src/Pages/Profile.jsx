@@ -1,26 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 // import { updateUser, deleteUser, logoutUser } from "../actions/userActions";
-
+import { logout, updateUser } from "../redux/features/authSlice";
 const ProfilePage = () => {
+  const baseUrl = import.meta.env.VITE_API_URL;
   const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState("");
-
+  const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
 
-  const handleUpdate = () => {
-    const updatedUser = { name, email, password };
-    dispatch(updateUser(updatedUser));
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { data } = await axios.get(`${baseUrl}/api/user/${user._id}`);
+        setName(data.name);
+        setEmail(data.email);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUser();
+  }, [user]);
+  const handleUpdate = async () => {
+    const profileData = { name, email };
+    if (password) {
+      profileData.password = password;
+    }
+    try {
+      const { data } = await axios.patch(
+        `${baseUrl}/api/user/update/${user._id}`,
+        profileData
+      );
+
+      dispatch(updateUser(data));
+    } catch (error) {
+      console.log(error);
+    }
+    setPassword("");
   };
 
-  const handleDelete = () => {
-    dispatch(deleteUser());
+  const handleDelete = async () => {
+    try {
+      const { data } = await axios.delete(
+        `${baseUrl}/api/user/deleteuser/${user._id}`
+      );
+      dispatch(logout());
+      console.log(data);
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleLogout = () => {
-    dispatch(logoutUser());
+    dispatch(logout());
   };
 
   return (

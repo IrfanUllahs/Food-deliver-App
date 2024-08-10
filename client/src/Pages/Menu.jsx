@@ -1,29 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import { getfoods } from "../api/foodRequest";
-import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import CustomPagination from "../components/CustomPagination";
-import { setCartProducts } from "../redux/features/cartSlice";
-import { addToCart } from "../api/cartRequest";
-import Toast from "../components/Toast";
+
 function Menu() {
-  const user = useSelector((state) => state?.auth?.user);
-  console.log(user);
-  const categories = ["All", "Chicken", "Rice", "Dessert", "Pizza", "Soup"];
+  const categories = ["All", "Chicken", "Rice", "Dessert", "Burger", "Drink"];
   const [data, setdata] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  console.log(data);
+  const { id } = useParams();
   const [currPage, setCurrPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
   const [category, setCategory] = useState("All");
 
-  const dispatch = useDispatch();
-  const { cartProducts } = useSelector((state) => state.cart);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [toastOpen, setToastOpen] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastSeverity, setToastSeverity] = useState("success");
+  useEffect(() => {
+    if (id) {
+      setCategory(id);
+    }
+  }, [id]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -52,6 +48,7 @@ function Menu() {
       );
     }
   }, [category, data, currPage]);
+  console.log(category);
   const handlePageChange = (value) => {
     setCurrPage(value);
   };
@@ -60,32 +57,6 @@ function Menu() {
     setCurrPage(1);
   };
 
-  const handleAddToCart = async (id) => {
-    try {
-      // if (user.role) {
-      //   setToastMessage("Admin can't add to cart");
-      //   setToastSeverity("error");
-      //   setToastOpen(true);
-      //   return;
-      // }
-      const { data } = await addToCart({ id });
-
-      dispatch(setCartProducts(data));
-      setToastMessage("Added to cart successfully!");
-      setToastSeverity("success");
-      setToastOpen(true);
-    } catch (error) {
-      setToastMessage(error.response?.data?.message || "not added to cart");
-      setToastSeverity("error");
-      setToastOpen(true);
-    }
-  };
-  const handleToastClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setToastOpen(false);
-  };
   return (
     <div className="flex flex-col gap-10 px-2 pt-[120px]">
       <h1 className="sm:text-5xl text-[25px] font-bold text-center">
@@ -132,7 +103,6 @@ function Menu() {
               price={item.price}
               id={item._id}
               image={item.image}
-              handleAddToCart={handleAddToCart}
             />
           ))
         )}
@@ -144,14 +114,6 @@ function Menu() {
         currPage={currPage}
         pageSize={pageSize}
         data={data}
-      />
-
-      <Toast
-        open={toastOpen}
-        handleClose={handleToastClose}
-        setOpen={setToastOpen}
-        message={toastMessage}
-        severity={toastSeverity}
       />
     </div>
   );

@@ -15,7 +15,6 @@ const recipeSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: true,
   },
   category: {
     type: String,
@@ -25,6 +24,11 @@ const recipeSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  lastSeen: { type: Date, default: Date.now },
+  userId: {
+    type: String,
+  },
+  rating: {
+    type: Number,
+  },
 });
 export default mongoose.model("foods", recipeSchema);

@@ -1,5 +1,6 @@
 import userModel from "../model/user_model.js";
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 export const getUsers = async (req, res) => {
   const { currentuserid } = req.params;
@@ -45,12 +46,16 @@ export const getUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
+  console.log(req.body);
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: "Invalid ID format" });
   }
 
   try {
+    if (req.body.password) {
+      req.body.password = bcrypt.hashSync(req.body.password, 10);
+    }
     let updateUser = await userModel.findByIdAndUpdate(
       id,
       {

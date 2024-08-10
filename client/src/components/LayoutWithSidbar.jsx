@@ -9,7 +9,7 @@ function LayoutWithSidbar() {
         <Sidebar />
       </div>
       <div className="md:w-[70%] w-full flex ">
-        <div className="h-full w-[80px]   flex justify-center pt-12 md:hidden pl-2 cursor-pointer ">
+        <div className="h-full w-[80px]   flex justify-center pt-12 md:hidden pl-2 cursor-pointer  ">
           <TemporaryDrawer />
         </div>
         <Outlet />
