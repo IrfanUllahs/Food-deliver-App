@@ -16,10 +16,7 @@ const getAllRecipes = async (req, res) => {
       return res.status(404).json({ message: "No food" });
     }
 
-    res.status(200).json({
-      results: recipes.length,
-      recipes,
-    });
+    res.status(200).json(recipes);
   } catch (err) {
     console.log({ error: err });
     res.status(500).json({ message: "Something went wrong" });

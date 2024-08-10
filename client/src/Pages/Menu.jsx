@@ -26,11 +26,13 @@ function Menu() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        let result = await getfoods({ category: category.toLocaleLowerCase() });
-        console.log("Fetch result:", result); // Log the result for debugging
+        let { data: result } = await getfoods({
+          category: category.toLocaleLowerCase(),
+        });
+        console.log(result); // Log the result for debugging
         setIsLoading(false);
         setIsError(null);
-        setdata(result.data.recipes || []);
+        setdata(result || []);
       } catch (error) {
         setIsLoading(false);
         console.error("Fetch error:", error); // Log the error for debugging
@@ -117,8 +119,7 @@ function Menu() {
           ))
         )}
       </div>
-      {/* Pagination will be implemented here */}
-      <h1>Pagination</h1>
+
       <CustomPagination
         handlePageChange={handlePageChange}
         currPage={currPage}
