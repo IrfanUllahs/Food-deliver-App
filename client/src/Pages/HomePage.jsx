@@ -37,20 +37,12 @@ function HomePage() {
   const user = useSelector((state) => state?.auth?.user);
 
   const [data, setdata] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      let result = await fetch("../../public/Menu.json");
-      let data = await result.json();
-      setdata(data.filter((item) => item.category === "popular"));
-    };
-    fetchData();
-  }, []);
 
   return (
     <div>
       <Hero />
       <PopularCategory popularData={popularData} />
-      <SpecialDisches data={data} />
+      <SpecialDisches />
       <Testimonial />
       <StoryServices />
     </div>

@@ -27,12 +27,12 @@ mongoose
   });
 
 app.use(
-  cors()
-  //   {
-  //   origin: ["http://localhost:5173"],
-  //   methods: ["POST", "GET", "DELETE", "PATCH"],
-  //   credentials: true,
-  // }
+  // cors()
+  cors({
+    origin: ["https://food-delivery-app-six-khaki.vercel.app/"],
+    methods: ["POST", "GET", "DELETE", "PATCH"],
+    credentials: true,
+  })
 );
 
 app.use(express.json());
