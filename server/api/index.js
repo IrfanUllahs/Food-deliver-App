@@ -3,13 +3,13 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-import authRouter from "./routes/auth_routes.js";
-import foodRouter from "./routes/food_routes.js";
-import userRouter from "./routes/user_routes.js";
-import cartRouter from "./routes/cart_routes.js";
-import paymentRouter from "./routes/payment_routes.js";
-import bookingRouter from "./routes/booking_routes.js";
-import orderRouter from "./routes/order_routes.js";
+import authRouter from "../routes/auth_routes.js";
+import foodRouter from "../routes/food_routes.js";
+import userRouter from "../routes/user_routes.js";
+import cartRouter from "../routes/cart_routes.js";
+import paymentRouter from "../routes/payment_routes.js";
+import bookingRouter from "../routes/booking_routes.js";
+import orderRouter from "../routes/order_routes.js";
 // import messageRouter from "./routes/message_routes.js";
 const app = express();
 dotenv.config();
@@ -27,9 +27,11 @@ mongoose
   });
 
 app.use(
-  // cors()
   cors({
-    origin: ["https://food-delivery-app-six-khaki.vercel.app/"],
+    origin: [
+      "https://food-delivery-app-six-khaki.vercel.app/",
+      "http://localhost:5173",
+    ],
     methods: ["POST", "GET", "DELETE", "PATCH"],
     credentials: true,
   })
