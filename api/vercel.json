@@ -19,7 +19,7 @@
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://food-delivery-app-six-khaki.vercel.app"
+          "value": "https://food-delivery-app-six-khaki.vercel.app/"
         },
         {
           "key": "Access-Control-Allow-Methods",

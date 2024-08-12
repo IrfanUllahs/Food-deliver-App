@@ -4,12 +4,10 @@ import Slider from "react-slick";
 import axios from "axios";
 function PopularCategory({ popularData }) {
   const [countData, setCountData] = useState([]);
-
+  const baseUlr = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get(
-        "http://localhost:5000/api/food/getfoodscount"
-      );
+      const { data } = await axios.get(baseUlr + "/api/food/getfoodscount");
 
       setCountData(data);
     };
@@ -33,7 +31,7 @@ function PopularCategory({ popularData }) {
         Popular Catagories
       </h1>
       <div className="grid lg:grid-cols-4 gap-11 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 px-4">
-        {popularData.map((item, index) => {
+        {popularData?.map((item, index) => {
           return (
             <Card
               key={item.id}
