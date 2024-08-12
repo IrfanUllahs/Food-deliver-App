@@ -41,7 +41,7 @@ const OrdersPage = () => {
       ) : (
         <div className="max-h-screen  p-4 w-full flex items-center flex-col gap-10 border-2 overflow-hidden overflow-y-scroll">
           {order?.length > 0 ? (
-            order.map((order) => (
+            order?.map((order) => (
               <>
                 <OrderDetails key={order?._id} order={order} />
 

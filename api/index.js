@@ -46,9 +46,9 @@ app.use("/api/cart", cartRouter);
 app.use("/api/payment", paymentRouter);
 app.use("/api/booking", bookingRouter);
 app.use("/api/order", orderRouter);
-// app.use("/", (req, res) => {
-//   res.json({ message: "deploy" });
-// });
+app.use("/", (req, res) => {
+  res.json({ message: "deploy" });
+});
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });

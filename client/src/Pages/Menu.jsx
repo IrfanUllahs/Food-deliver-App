@@ -83,7 +83,7 @@ function Menu() {
         Order Now
       </button>
       <div className="flex gap-4 px-4 font-inter font-semibold text-[20px]">
-        {categories.map((item) => (
+        {categories?.map((item) => (
           <button
             key={item}
             className={`hover:text-primary ${
@@ -105,8 +105,8 @@ function Menu() {
             {isError}
           </h1>
         ) : (
-          filteredData.length > 0 &&
-          filteredData.map((item) => (
+          filteredData?.length > 0 &&
+          filteredData?.map((item) => (
             <Card
               key={item._id}
               fav={true}

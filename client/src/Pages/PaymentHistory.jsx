@@ -46,7 +46,7 @@ function PaymentHistory() {
                   Loading...
                 </h1>
               ) : (
-                data.map((item, index) => (
+                data?.map((item, index) => (
                   <tr
                     key={index}
                     className="border-b border-gray-200 hover:bg-gray-100"

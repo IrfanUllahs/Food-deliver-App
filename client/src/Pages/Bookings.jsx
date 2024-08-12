@@ -101,7 +101,7 @@ function Bookings() {
             </tr>
           </thead>
           <tbody className="text-gray-600 text-sm font-light">
-            {bookings.map((item, index) => (
+            {bookings?.map((item, index) => (
               <tr key={index} className="border-b border-gray-200 ">
                 <td className="py-3 sm:px-6 px-2 text-left whitespace-nowrap">
                   {item.email}

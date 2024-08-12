@@ -23,7 +23,7 @@ const Products = () => {
     try {
       const { data } = await deleteFood(id);
       console.log(data);
-      setProducts(products.filter((item) => item._id !== id));
+      setProducts(products?.filter((item) => item._id !== id));
     } catch (error) {
       console.log(error.response.data.message);
     }
@@ -46,8 +46,8 @@ const Products = () => {
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm font-light">
-                {products.length > 0 ? (
-                  products.map((item) => (
+                {products?.length > 0 ? (
+                  products?.map((item) => (
                     <tr
                       asdfas
                       className="border-b border-gray-200 hover:bg-gray-100"
