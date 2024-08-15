@@ -12,7 +12,6 @@ function Menu() {
   const [currPage, setCurrPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
   const [category, setCategory] = useState("All");
-
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
 
@@ -29,7 +28,7 @@ function Menu() {
         let { data: result } = await getfoods({
           category: category.toLocaleLowerCase(),
         });
-        console.log(result); // Log the result for debugging
+        console.log(result);
         setIsLoading(false);
         setIsError(null);
         setdata(result || []);
@@ -46,11 +45,11 @@ function Menu() {
     if (data.length > 0) {
       if (category === "All") {
         setFilteredData(
-          (data || []).slice((currPage - 1) * pageSize, currPage * pageSize)
+          data.slice((currPage - 1) * pageSize, currPage * pageSize)
         );
       } else {
         setFilteredData(
-          (data || [])
+          data
             .filter((item) => item.category === category.toLocaleLowerCase())
             .slice((currPage - 1) * pageSize, currPage * pageSize)
         );
@@ -66,9 +65,7 @@ function Menu() {
     setCategory(item);
     setCurrPage(1);
   };
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+
   return (
     <div className="flex flex-col gap-10 px-2 pt-[120px]">
       <h1 className="sm:text-5xl text-[25px] font-bold text-center">

@@ -25,15 +25,9 @@ function ProductDetail() {
       setProduct(data);
     };
     fetchData();
-  }, []);
+  }, [id]);
   const handleAddToCart = async (id) => {
     try {
-      // if (user.role) {
-      //   setToastMessage("Admin can't add to cart");
-      //   setToastSeverity("error");
-      //   setToastOpen(true);
-      //   return;
-      // }
       const { data } = await addToCart({ id });
 
       dispatch(setCartProducts(data));

@@ -11,7 +11,7 @@ const addToCart = async (req, res) => {
       return res.status(400).send({ message: "Invalid ID format" });
     }
     const product = await foodModel.findById(id);
-    // check the id first is valid mongodb object id or not
+
     if (!product) {
       return res.status(404).send({ message: "Product not found" });
     }
@@ -21,7 +21,6 @@ const addToCart = async (req, res) => {
     });
     console.log(existingCartItem);
     if (existingCartItem) {
-      // give error response
       return res.status(400).send({ message: "Product already in cart" });
     }
     const cartItem = await Cart.create({
@@ -40,10 +39,6 @@ const getCartProducts = async (req, res) => {
   const userId = req.userId;
   try {
     const cartItems = await Cart.find({ userId: userId }).populate("productId");
-    // if (cartItems.length === 0) {
-    //   console.log(cartItems);
-    //   return res.status(404).send({ message: "Cart is empty" });
-    // }
     res.status(200).send(cartItems);
   } catch (err) {
     res.status(500).send({ message: "Error retrieving cart items" });
@@ -69,7 +64,6 @@ const deleteProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const userId = req.userId;
-  console.log(req.body);
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).send({ message: "Invalid ID format" });

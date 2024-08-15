@@ -7,7 +7,7 @@ import { FaStar } from "react-icons/fa";
 
 function Testimonial() {
   return (
-    <div className="flex  w-full md:h-[700px] h-[1200px] gap md:flex-row flex-col mt-[200px] border-2 border-red-600 ">
+    <div className="flex  w-full md:h-[700px] h-[1200px] gap md:flex-row flex-col mt-[200px] ">
       {/* left section */}
       <div className="   flex-1 h-full md:order-1 order-2 ">
         <img

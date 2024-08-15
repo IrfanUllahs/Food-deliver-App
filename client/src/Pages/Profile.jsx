@@ -8,8 +8,8 @@ const ProfilePage = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
   const [password, setPassword] = useState("");
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data } = await axios.get(`${baseUrl}/api/user/${user._id}`);
+        const { data } = await axios.get(`${baseUrl}/api/user/${user?._id}`);
         setName(data.name);
         setEmail(data.email);
       } catch (error) {
@@ -59,6 +59,7 @@ const ProfilePage = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/login");
   };
 
   return (

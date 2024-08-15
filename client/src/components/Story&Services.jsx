@@ -4,6 +4,7 @@ import image1 from "../assets/serives/fi-rr-gift.png";
 import image2 from "../assets/serives/fi-rr-salad.png";
 import image3 from "../assets/serives/fi-rr-shopping-cart-check.png";
 import image4 from "../assets/serives/fi-rr-time-fast.png";
+import { Link } from "react-router-dom";
 function StoryServices() {
   return (
     <div className="flex mt-28 px-2 lg:flex-row flex-col gap-4">
@@ -19,9 +20,11 @@ function StoryServices() {
           offer exceptional services, blending culinary artistry with warm
           hospitality.
         </p>
-        <button className="button shadow-lg shadow-green-200 !px-6 ">
-          Explore
-        </button>
+        <Link to="/menu">
+          <button className="button shadow-lg shadow-green-200 !px-6 ">
+            Explore
+          </button>
+        </Link>
       </div>
       <div className="flex-1   grid gap-16 sm:grid-cols-2 grid-cols-1 px-5 py-4">
         <ServicesCard

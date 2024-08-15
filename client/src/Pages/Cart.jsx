@@ -18,10 +18,9 @@ const Loading = () => (
 const Cart = () => {
   const id = "checkout";
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("fooduser"));
-  console.log(user);
+  const user = useSelector((state) => state.auth.user);
+  console.log(user, "user");
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-  // console.log(JSON.parse(localStorage.getItem("fooduser")).token);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -48,7 +47,6 @@ const Cart = () => {
   }, []);
 
   const handleUpdate = async (id, quantity) => {
-    console.log(quantity);
     if (quantity < 1) return;
     if (quantity > 5) return;
     try {
@@ -75,7 +73,6 @@ const Cart = () => {
         total += cartProducts[i].price * cartProducts[i].quantity;
       }
       setTotalPrice(total);
-      //   settotalProducts(cartProducts.length - 1);
     }
   }, [cartProducts]);
 
@@ -168,16 +165,16 @@ const Cart = () => {
           <h2 className=" font-semibold font-inter text-2xl ">
             Customer Details
           </h2>
-          {customerDetails ? (
+          {user ? (
             <div className="flex flex-col sm:gap-4 gap-2">
               <p>
-                <strong>Name:</strong> {customerDetails[0].name || "None"}
+                <strong>Name:</strong> {user.name || "None"}
               </p>
               <p>
-                <strong>Email:</strong> {customerDetails[0].email || "None"}
+                <strong>Email:</strong> {user.email || "None"}
               </p>
               <p>
-                <strong>User ID:</strong> {customerDetails[0].userId || "None"}
+                <strong>User ID:</strong> {user._id || "None"}
               </p>
             </div>
           ) : (

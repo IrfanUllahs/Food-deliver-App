@@ -8,7 +8,7 @@ function PopularCategory({ popularData }) {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(baseUlr + "/api/food/getfoodscount");
-
+      console.log(data);
       setCountData(data);
     };
     fetchData();

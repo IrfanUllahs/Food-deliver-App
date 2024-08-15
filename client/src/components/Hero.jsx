@@ -3,6 +3,7 @@ import { FaPlay } from "react-icons/fa";
 import image1 from "../assets/HeroImage/spiceyNodles.png";
 import salad from "../assets/HeroImage/salad.png";
 import FiveStar from "./FiveStar";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -20,15 +21,23 @@ function Hero() {
           Craftsmanship
         </p>
         <div className="flex items-center mt-10 cursor-pointer justify-center custmd:gap-10 gap-3">
-          <button className="button shadow-lg shadow-green-200">
-            Order Now
-          </button>
-          <p className="text-xl font-inter text-[#4D4D4D] font-medium">
-            Watch Video
-          </p>
-          <div className="text-secondary text-xl flex items-center justify-center bg-white rounded-full h-10 w-10 shadow-lg shadow-gray-300 p-2">
-            <FaPlay />
-          </div>
+          <Link to={"/menu"}>
+            <button className="button shadow-lg shadow-green-200">
+              Order Now
+            </button>
+          </Link>
+          <a
+            href="https://www.youtube.com/shorts/2dR6SzUwbpY"
+            target="_blank"
+            className=" flex items-center custmd:gap-10 gap-3  "
+          >
+            <p className="text-xl font-inter text-[#4D4D4D] font-medium">
+              Watch Video
+            </p>
+            <div className="text-secondary text-xl flex items-center justify-center bg-white rounded-full h-10 w-10 shadow-lg shadow-gray-300 p-2">
+              <FaPlay />
+            </div>
+          </a>
         </div>
       </div>
       {/* right section */}
