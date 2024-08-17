@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidbar";
 import { getbookings } from "../api/bookingRequest";
 import { getPayments } from "../api/paymentReuest";
+import axios from "axios";
 function Dashboard() {
   const [ORDERS, setORDERS] = useState("");
   const [BOOKINGS, setBOOKINGS] = useState("");
@@ -12,8 +13,12 @@ function Dashboard() {
       try {
         const { data } = await getbookings();
         const { data: data2 } = await getPayments();
+        const { data: data3 } = await axios.get("/api/food/getfoodscount");
+        console.log(data3);
         setBOOKINGS(data.length);
         setPAYMENTS(data2.length);
+        console.log(data2);
+        console.log(data);
       } catch (error) {
         console.log(error);
       }

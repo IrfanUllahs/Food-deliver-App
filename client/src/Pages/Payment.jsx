@@ -8,8 +8,6 @@ import { createOrder } from "../api/orderRequest";
 function Payment() {
   const { id } = useParams();
 
-  const [paymentType, setPaymentType] = useState("");
-
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
@@ -64,7 +62,6 @@ function Payment() {
       setIsLoading(false);
       if (!paymentType !== "Booking") {
         const data = await createOrder();
-        console.log(data);
       }
     } catch (error) {
       console.log(error);

@@ -2,7 +2,7 @@ import paymentModel from "../model/payment_model.js";
 import cartModel from "../model/cart_model.js";
 import bookingModel from "../model/booking_model.js";
 import mongoose from "mongoose";
-//suggest name for this
+
 const createPayment = async (req, res) => {
   const { cardNumber, expiryDate, cvc, amount, userEmail, payment, id } =
     req.body;

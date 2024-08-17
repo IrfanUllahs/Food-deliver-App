@@ -8,8 +8,6 @@ import { createBooking } from "../api/bookingRequest";
 import { setBookingProducts } from "../redux/features/bookingSlice";
 import { useDispatch, useSelector } from "react-redux";
 function Reservation() {
-  const bookings = useSelector((state) => state.booking.bookingProducts);
-  console.log(bookings);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [date, setDate] = useState("");
@@ -34,10 +32,7 @@ function Reservation() {
     }
     try {
       setIsLoading(true);
-      setIsError(false);
-      setToastMessage("Booking successful!");
-      setToastSeverity("success");
-      setToastOpen(true);
+
       const { data } = await createBooking({
         date,
         time,
@@ -49,6 +44,10 @@ function Reservation() {
       console.log(data);
       dispatch(setBookingProducts(data));
       setIsLoading(false);
+      setIsError(false);
+      setToastMessage("Booking successful!");
+      setToastSeverity("success");
+      setToastOpen(true);
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -146,7 +145,7 @@ function Reservation() {
               type="submit"
               className=" text-white font-inter gredient bg-gradient-to-r from-sky-400 to-blue-500 w-fit mx-auto rounded-md p-3 hover:bg-gradient-to-r hover:from-sky-500 hover:to-blue-600 "
             >
-              Book A Table
+              {isLoading ? "Loading..." : " Book A Table"}
             </button>
           </div>
         </form>
