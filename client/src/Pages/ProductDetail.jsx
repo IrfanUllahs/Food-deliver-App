@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 function ProductDetail() {
   const user = useSelector((state) => state.auth.user);
   const { id } = useParams();
+  const baseUrl = import.meta.env.VITE_API_URL;
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -19,9 +20,7 @@ function ProductDetail() {
   const [product, setProduct] = useState({});
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get(
-        `http://localhost:5000/api/food/getfood/${id}`
-      );
+      const { data } = await axios.get(`${baseUrl}/api/food/getfood/${id}`);
       setProduct(data);
     };
     fetchData();
