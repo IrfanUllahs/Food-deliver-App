@@ -69,7 +69,7 @@ const login = async (req, res) => {
     // Generate a JWT token
     const token = Jwt.sign(
       { id: user._id, role: user?.isAdmin },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || "irfankhan",
       {
         expiresIn: "1h",
       }
@@ -108,7 +108,7 @@ const googleSignIn = async (req, res) => {
 
     const token = Jwt.sign(
       { id: user._id, email: user.email },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || "irfankhan",
       {
         expiresIn: "1h",
       }
