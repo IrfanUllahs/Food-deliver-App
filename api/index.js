@@ -29,8 +29,9 @@ mongoose
 app.use(
   cors({
     origin: [
-      "https://food-delivery-app-six-khaki.vercel.app/",
+      // "https://food-delivery-app-six-khaki.vercel.app/",
       "http://localhost:5173",
+      "http://localhost:4173",
     ],
     methods: ["POST", "GET", "DELETE", "PATCH"],
     credentials: true,

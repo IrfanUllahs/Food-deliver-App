@@ -22,3 +22,4 @@ client/build/
 client/.env
 api/node_modules/
 api/.env
+client/dist
