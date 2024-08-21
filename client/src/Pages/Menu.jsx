@@ -14,6 +14,7 @@ function Menu() {
   const [category, setCategory] = useState("All");
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     if (id) {
@@ -27,11 +28,15 @@ function Menu() {
         setIsLoading(true);
         let { data: result } = await getfoods({
           category: category.toLocaleLowerCase(),
+          page: currPage,
         });
         console.log(result);
+        setTotalPages(result.totalPages);
+
         setIsLoading(false);
         setIsError(null);
-        setdata(result || []);
+        setdata(result.recipes);
+        setFilteredData(result.recipes);
       } catch (error) {
         setIsLoading(false);
         console.error("Fetch error:", error); // Log the error for debugging
@@ -39,23 +44,23 @@ function Menu() {
       }
     };
     fetchData();
-  }, [category]);
+  }, [category, currPage]);
 
-  useEffect(() => {
-    if (data.length > 0) {
-      if (category === "All") {
-        setFilteredData(
-          data.slice((currPage - 1) * pageSize, currPage * pageSize)
-        );
-      } else {
-        setFilteredData(
-          data
-            .filter((item) => item.category === category.toLocaleLowerCase())
-            .slice((currPage - 1) * pageSize, currPage * pageSize)
-        );
-      }
-    }
-  }, [category, data, currPage, pageSize]);
+  // useEffect(() => {
+  //   if (data?.length > 0) {
+  //     if (category === "All") {
+  //       setFilteredData(
+  //         data?.slice((currPage - 1) * pageSize, currPage * pageSize)
+  //       );
+  //     } else {
+  //       setFilteredData(
+  //         data
+  //           .filter((item) => item.category === category.toLocaleLowerCase())
+  //           .slice((currPage - 1) * pageSize, currPage * pageSize)
+  //       );
+  //     }
+  //   }
+  // }, [category, data, currPage, pageSize]);
 
   const handlePageChange = (value) => {
     setCurrPage(value);
@@ -120,8 +125,7 @@ function Menu() {
       <CustomPagination
         handlePageChange={handlePageChange}
         currPage={currPage}
-        pageSize={pageSize}
-        data={data}
+        totalPages={totalPages}
       />
     </div>
   );

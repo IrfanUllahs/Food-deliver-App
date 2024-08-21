@@ -11,7 +11,6 @@ export default function HorizontalLinearAlternativeLabelStepper({
   handleClick,
   id,
 }) {
-  console.log(status);
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={status} alternativeLabel>

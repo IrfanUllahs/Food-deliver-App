@@ -3,10 +3,14 @@ import { useParams } from "react-router-dom";
 import axios from "axios"; // Or use fetch if preferred
 import { useNavigate } from "react-router-dom";
 import { addFood } from "../api/bookingRequest";
+import UploadWidget from "../components/UploadWidget";
 const AddProduct = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
   const { id } = useParams();
+  const [image, setImage] = useState();
+  console.log(image);
   const [data, setData] = useState({
     name: "",
     price: "",
@@ -14,6 +18,7 @@ const AddProduct = () => {
     rating: "",
     category: "",
     shortName: "",
+    image: "",
   });
   const [error, setError] = useState("");
 
@@ -37,19 +42,22 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = { ...data, image };
+    console.log(data);
     if (
-      name === "" ||
-      price === "" ||
-      recipe === "" ||
-      rating === "" ||
-      category === "" ||
-      shortName === ""
+      data.name === "" ||
+      data.price === "" ||
+      data.recipe === "" ||
+      data.rating === "" ||
+      data.category === "" ||
+      data.shortName === "" ||
+      image === ""
     ) {
       alert("All fields are required");
       return;
     }
     try {
-      const { data: response } = await addFood(data);
+      const { data: response } = await addFood(formData);
       console.log(response);
       navigate("/productdetail/" + response.food._id);
     } catch (err) {
@@ -61,8 +69,30 @@ const AddProduct = () => {
     <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden p-6  ">
       <div className="max-h-[500px] overflow-x-auto">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">
-          Update Food Item
+          Create Food Item
         </h1>
+        <div>
+          <UploadWidget
+            uwConfig={{
+              cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
+              uploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET,
+              multiple: false,
+              folder: "profile",
+            }}
+            setImage={setImage}
+          />
+        </div>
+        <div className="w-[250px] ">
+          {image ? (
+            <img
+              src={image}
+              alt="NO image "
+              className=" object-cover  rounded-md mt-3"
+            />
+          ) : (
+            <span>No Image. Upload here</span>
+          )}
+        </div>
         <form
           onSubmit={handleSubmit}
           className="flex  gap-4 flex-col sm:flex-row"
@@ -117,17 +147,6 @@ const AddProduct = () => {
                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:ring-green-300"
               />
             </div>
-
-            {/* <div className="mb-4">
-              <label className="block text-gray-700">Image URL:</label>
-              <input
-                type="text"
-                name="image"
-                value={data.image}
-                onChange={handleChange}
-                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:ring-green-300"
-              />
-            </div> */}
 
             <div className="mb-4">
               <label className="block text-gray-700">Category:</label>

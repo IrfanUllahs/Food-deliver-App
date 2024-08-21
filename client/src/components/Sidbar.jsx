@@ -157,39 +157,6 @@ const Sidebar = () => {
           <FaHome className="mr-3 text-[25px]" />
           <span className="transition duration-200">BACK TO HOME</span>
         </NavLink>
-        <NavLink
-          to="/shop"
-          className={({ isActive }) =>
-            `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
-              isActive ? "text-white" : "text-black"
-            }`
-          }
-        >
-          <FaStore className="mr-3 text-[25px]" />
-          <span className="transition duration-200">SHOP</span>
-        </NavLink>
-        <NavLink
-          to="/contact"
-          className={({ isActive }) =>
-            `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
-              isActive ? "text-white" : "text-black"
-            }`
-          }
-        >
-          <FaEnvelope className="mr-3 text-[25px]" />
-          <span className="transition duration-200">CONTACT</span>
-        </NavLink>
-        <NavLink
-          to="/faq"
-          className={({ isActive }) =>
-            `flex items-center py-2 px-4 hover:bg-green-600 rounded transition duration-200 ${
-              isActive ? "text-white" : "text-black"
-            }`
-          }
-        >
-          <FaQuestionCircle className="mr-3 text-[25px]" />
-          <span className="transition duration-200">FAQ</span>
-        </NavLink>
       </div>
     </div>
   );

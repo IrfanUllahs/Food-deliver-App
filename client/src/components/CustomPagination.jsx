@@ -5,9 +5,7 @@ import Stack from "@mui/material/Stack";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-function CustomPagination({ handlePageChange, currPage, pageSize, data }) {
-  const totalPages = Math.ceil(data?.length / pageSize);
-
+function CustomPagination({ handlePageChange, currPage, totalPages }) {
   const handleChange = (event, value) => {
     handlePageChange(value);
   };

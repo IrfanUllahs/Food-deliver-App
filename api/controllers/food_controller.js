@@ -2,21 +2,44 @@ import foodModel from "../model/food_model.js";
 import mongoose from "mongoose";
 const getAllRecipes = async (req, res) => {
   const { category } = req.params;
+  console.log(req.query, "params");
+  const page = parseInt(req.query.page) || 1; // Default to page 1
+  const limit = parseInt(req.query.limit) || 9;
 
   try {
+    const startIndex = (page - 1) * limit;
+    let total;
     let recipes = [];
     if (category === "all") {
-      recipes = await foodModel.find();
+      recipes = await foodModel.find().skip(startIndex).limit(limit);
+      total = await foodModel.find().count();
     } else if (category == "no") {
-      recipes = await foodModel.find().limit(10);
+      recipes = await foodModel.find().skip(startIndex).limit(limit);
+      total = await foodModel.find({ category }).count();
     } else {
-      recipes = await foodModel.find({ category });
+      recipes = await foodModel
+        .find({ category })
+        .skip(startIndex)
+        .limit(limit);
+      total = await foodModel.find({ category }).count();
     }
     if (recipes.length <= 0) {
       return res.status(404).json({ message: "No food" });
     }
 
-    res.status(200).json(recipes);
+    res.status(200).json({
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+      recipes,
+    });
+    console.log({
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    });
   } catch (err) {
     console.log({ error: err });
     res.status(500).json({ message: "Something went wrong" });

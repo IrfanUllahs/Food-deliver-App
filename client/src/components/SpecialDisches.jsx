@@ -21,7 +21,7 @@ function SpecialDisches() {
         setIsLoading(true);
         const { data } = await axios.get(baseUrl + "/api/food/getfoods/no");
         console.log(data);
-        setdata(data);
+        setdata(data.recipes);
         setIsLoading(false);
       } catch (error) {
         console.log(error);

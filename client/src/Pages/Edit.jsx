@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import UploadWidget from "../components/UploadWidget";
 import { useParams } from "react-router-dom";
 import axios from "axios"; // Or use fetch if preferred
 import { useNavigate } from "react-router-dom";
@@ -7,6 +8,7 @@ const UpdatePage = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const { id } = useParams();
+  const [image, setImage] = useState();
   const [data, setData] = useState({
     name: "",
     price: "",
@@ -54,10 +56,10 @@ const UpdatePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data);
+    const formData = { ...data, image };
 
     try {
-      const { data: response } = await updateFood(data, id);
+      const { data: response } = await updateFood(formData, id);
       console.log(response);
       navigate("/productdetail/" + id);
     } catch (err) {
@@ -71,6 +73,28 @@ const UpdatePage = () => {
         <h1 className="text-2xl font-bold text-gray-800 mb-4">
           Update Food Item
         </h1>
+        <div>
+          <UploadWidget
+            uwConfig={{
+              cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
+              uploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET,
+              multiple: false,
+              folder: "profile",
+            }}
+            setImage={setImage}
+          />
+        </div>
+        <div className="w-[250px] ">
+          {data.image ? (
+            <img
+              src={image || data.image}
+              alt="NO image "
+              className=" object-cover rounded-md mt-3"
+            />
+          ) : (
+            <span>No Image. Upload here</span>
+          )}
+        </div>
         <form
           onSubmit={handleSubmit}
           className="flex  gap-4 flex-col sm:flex-row"

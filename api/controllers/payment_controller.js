@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 const createPayment = async (req, res) => {
   const { cardNumber, expiryDate, cvc, amount, userEmail, payment, id } =
     req.body;
-  console.log(req.body, "req.body");
+
   const userId = req.userId;
   const bookingId = id;
 
