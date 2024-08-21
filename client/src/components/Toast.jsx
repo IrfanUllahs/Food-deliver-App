@@ -5,7 +5,7 @@ import Alert from "@mui/material/Alert";
 
 function Toast({ open, handleClose, message, severity }) {
   return (
-    <Snackbar open={open} autoHideDuration={500} onClose={handleClose}>
+    <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
       <Alert
         onClose={handleClose}
         severity={severity}

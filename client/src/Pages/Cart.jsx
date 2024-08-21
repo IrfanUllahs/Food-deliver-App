@@ -50,20 +50,26 @@ const Cart = () => {
     if (quantity < 1) return;
     if (quantity > 5) return;
     try {
+      setIsLoading(true);
       const { data } = await updateCart({ id, quantity });
       console.log(data);
       dispatch(updateCartProducts(data));
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
   const handleDelete = async (id) => {
     try {
+      setIsLoading(true);
       const { data } = await deleteCart({ id });
       console.log(data);
       dispatch(deleteCartProducts(data));
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -76,7 +82,13 @@ const Cart = () => {
     }
   }, [cartProducts]);
 
-  if (isLoading) return <Loading />;
+  if (isLoading) {
+    return (
+      <div className="h-[300px] flex items-center">
+        <span className="loader absolute left-1/2 right-1/2 "></span>
+      </div>
+    );
+  }
   if (cartProducts.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full px-0 sm:px-4 ">

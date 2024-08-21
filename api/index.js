@@ -14,9 +14,7 @@ import orderRouter from "./routes/order_routes.js";
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 5000;
-let DBSTRINGS =
-  process.env.DBSTRINGS ||
-  "mongodb+srv://irfancode:naMvHwQOmhRFMx8g@cluster0.acdfbpr.mongodb.net/food?retryWrites=true&w=majority&appName=Cluster0";
+let DBSTRINGS = process.env.DBSTRINGS;
 console.log(DBSTRINGS, "db url is here");
 
 mongoose
@@ -31,7 +29,7 @@ mongoose
 app.use(
   cors({
     origin: [
-     "https://food-delivery-app-ten-zeta.vercel.app",
+      "https://food-delivery-app-ten-zeta.vercel.app",
       "http://localhost:5173",
       "http://localhost:4173",
     ],

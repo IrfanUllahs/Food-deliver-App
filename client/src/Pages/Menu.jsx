@@ -97,11 +97,9 @@ function Menu() {
           </button>
         ))}
       </div>
-      <div className="grid lg:grid-cols-3 gap-16 md:grid-cols-2 grid-cols-1 px-4 mt-16">
+      <div className="grid lg:grid-cols-3 gap-16 md:grid-cols-2 grid-cols-1 px-4 mt-16 relative py-8">
         {isLoading ? (
-          <div className="text-center text-3xl w-[1200px] mx-auto my-[100px]">
-            Loading...
-          </div>
+          <span className="loader absolute left-1/2 right-1/2 "></span>
         ) : isError ? (
           <h1 className="text-center text-3xl w-[1200px] mx-auto my-[100px]">
             {isError}
@@ -122,11 +120,13 @@ function Menu() {
         )}
       </div>
 
-      <CustomPagination
-        handlePageChange={handlePageChange}
-        currPage={currPage}
-        totalPages={totalPages}
-      />
+      {!isLoading && (
+        <CustomPagination
+          handlePageChange={handlePageChange}
+          currPage={currPage}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   );
 }

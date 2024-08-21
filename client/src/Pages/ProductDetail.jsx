@@ -13,6 +13,7 @@ function ProductDetail() {
   const baseUrl = import.meta.env.VITE_API_URL;
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const [cartLoader, setCartLoader] = useState(false);
   const [isError, setIsError] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -20,24 +21,29 @@ function ProductDetail() {
   const [product, setProduct] = useState({});
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       const { data } = await axios.get(`${baseUrl}/api/food/getfood/${id}`);
       setProduct(data);
+      setIsLoading(false);
     };
     fetchData();
   }, [id]);
   const handleAddToCart = async (id) => {
     try {
+      setCartLoader(true);
       const { data } = await addToCart({ id });
 
       dispatch(setCartProducts(data));
       setToastMessage("Added to cart successfully!");
       setToastSeverity("success");
       setToastOpen(true);
+      setCartLoader(false);
     } catch (error) {
       console.log(error);
       setToastMessage(error.response?.data?.message || "not added to cart");
       setToastSeverity("error");
       setToastOpen(true);
+      setCartLoader(false);
     }
   };
   const handleToastClose = (event, reason) => {
@@ -46,6 +52,13 @@ function ProductDetail() {
     }
     setToastOpen(false);
   };
+  if (isLoading) {
+    return (
+      <div className="h-[200px] flex items-center">
+        <span className="loader absolute left-1/2 right-1/2 "></span>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col md:flex-row bg-white shadow-md rounded-lg p-4  my-[50px] gap-6 mx-4">
       <div className="sm:w-[40%] w-[90%] border-2">
@@ -77,7 +90,11 @@ function ProductDetail() {
             className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-primary transition duration-300"
             onClick={() => handleAddToCart(product._id)}
           >
-            Add to Cart
+            {cartLoader ? (
+              <span className="loader__Text"></span>
+            ) : (
+              " Add to Cart"
+            )}
           </button>
         )}
       </div>
