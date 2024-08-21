@@ -14,7 +14,9 @@ import orderRouter from "./routes/order_routes.js";
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 5000;
-let DBSTRINGS = process.env.DBSTRINGS;
+let DBSTRINGS =
+  process.env.DBSTRINGS ||
+  "mongodb+srv://irfancode:naMvHwQOmhRFMx8g@cluster0.acdfbpr.mongodb.net/food?retryWrites=true&w=majority&appName=Cluster0";
 console.log(DBSTRINGS, "db url is here");
 
 mongoose
